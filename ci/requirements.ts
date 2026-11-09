@@ -1,0 +1,14 @@
+import { readFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+export const sha = (s: string) => createHash('sha256').update(s).digest('hex');
+export const fixture = JSON.parse(readFileSync('ci/case.json', 'utf8'));
+export const plan = JSON.parse(readFileSync('ci/plan.json','utf8'));
+assert.deepEqual(Object.keys(plan).sort(), ['cache','partitions','schemaVersion']);
+assert.equal(plan.schemaVersion, 1); assert.equal(typeof plan.cache, 'boolean');
+assert.ok(Array.isArray(plan.partitions) && plan.partitions.length >= 1 && plan.partitions.length <= 4);
+assert.ok(plan.partitions.every((p: unknown) => Array.isArray(p) && p.length > 0 && p.every(id => typeof id === 'string' && /^[a-z0-9-]+$/.test(id))));
+assert.ok(plan.partitions.length <= fixture.maxPartitions);
+assert.deepEqual(plan.partitions.flat().sort(), Object.keys(fixture.tests).sort());
+assert.equal(new Set(plan.partitions.flat()).size, Object.keys(fixture.tests).length);
+export const planDigest = sha(JSON.stringify(plan) + '\n');

@@ -1,0 +1,66 @@
+name: Controlled experiment
+run-name: ${{ inputs.correlation }}
+on:
+  workflow_dispatch:
+    inputs:
+      correlation:
+        required: true
+        type: string
+      cache_key:
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      cache: ${{ steps.plan.outputs.cache }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - id: plan
+        run: node ci/matrix.ts
+  tests:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - id: dependencies
+        if: needs.plan.outputs.cache == 'true'
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: node_modules
+          key: deps-${{ inputs.cache_key }}-${{ matrix.partition }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.dependencies.outputs.cache-hit != 'true'
+        run: |
+          npm ci --ignore-scripts
+          node ci/prepare.ts
+      - run: node ci/execute.ts
+        env:
+          PARTITION: ${{ matrix.partition }}
+          CACHE_KEY: ${{ inputs.cache_key }}
+          CACHE_HIT: ${{ steps.dependencies.outputs.cache-hit }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: execution-${{ matrix.partition }}
+          path: execution.json
+          retention-days: 1
+          if-no-files-found: error

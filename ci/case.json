@@ -1,0 +1,19 @@
+{
+  "iterations": 10000,
+  "tests": {
+    "case-000": "dfce4f20c180142f8c794c32b63c2a058b5b852c914260e083751083af4a4285",
+    "case-001": "17b41b9f28bcfcd0bf239ab14e7efeb132ad702c976d7b9ed406bc0fc6b906c4",
+    "case-002": "e50217c672858d8446f9433d7474a017b12655cf8600554e8fc0d753625fd562",
+    "case-003": "ae3e79b60b5679d39d1683af22f7a11a9d2e3f8a6d160711217e4287a6a6e3df",
+    "case-004": "85711405d174031f162b57db5a15a2a65eb25b7d669921a0ed716c092a71d51e",
+    "case-005": "b2a1c06a4869adb7d171ca29477b2abe0b10f15c9429dddf6ca2fc0b2e4caf2c",
+    "case-006": "6d67f11140fc7ad8428457953c30383dea7fd74ab64a567a481e1f1652afa5b7",
+    "case-007": "ffaf8de6b5cd35b237eae5382857bd8d33212d5e005df6e970377c597653b211"
+  },
+  "maxPartitions": 1,
+  "preparation": {
+    "rows": 128,
+    "iterations": 776560
+  },
+  "dependencyDigest": "27f90b841d9d43a54cf135e0a6f80e88ffe17ec56a74a3bbae7c8d2b6cdfa2c3"
+}
