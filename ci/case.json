@@ -1,12 +1,24 @@
 {
-  "iterations": 1000,
+  "iterations": 12000,
   "tests": {
-    "case-000": "14a821934713c533e8cfb222e2b7005dbff0765db5ed36f4434519cdd3483e2b"
+    "case-000": "000a565e0f74735de93a533fc3785e4a57de755a188e75b648337877c8438e5d",
+    "case-001": "4ae7aa07c77d1e1a970e40fd5b11ab653e9fdcc5efed7af6f50fc06897a9dcc6",
+    "case-002": "3839acf8cb2d1d161b8e35b5ad9f2da05b2d3901943152c83f487d7f5d13cdd3",
+    "case-003": "9540f011fe6f2819168b55d5de83c53b9d968917da793925179a01ae43992181",
+    "case-004": "b7e4557d937096ba82d93b51fd9d822757912da1df43dc0a0396c5117baf66ed",
+    "case-005": "0472dbabed9197cc226ec2e17608ecd63ea372d81a03f7c6536e85ee87f7c095",
+    "case-006": "c03f8e1258359a14b122857b22d8bd76b0cef8107c81139d76167d2403541a4d",
+    "case-007": "733a7a56c893ee0d4f45bb4acf98d559ceec4eb3bcecc5c3e3fd50d939c7f4c6",
+    "case-008": "840121f03de7a82998a8c8961bea5bc990df3a4ed813f7641529e20fb60b350f",
+    "case-009": "2cc67dab47da7431a950587c3e75fafc96810dbd9778b6459679d809991861dd",
+    "case-010": "d65a0f4bc4cc3c2be6f0a9093a76bdc96ef77913b9d9931ba20b8afc4822cec4",
+    "case-011": "101ed966c11a0ca36aedef0bc4cebb07cc8cb76ff9d56801d734274f36cc1e80",
+    "case-012": "aae69580808afb69ae61e1decd8cad9e9b8424171f47975fcc6f2e0b832a15ad"
   },
   "maxPartitions": 1,
   "preparation": {
-    "rows": 8,
-    "iterations": 1000
+    "rows": 160,
+    "iterations": 776560
   },
-  "dependencyDigest": "4338c3acc031176e0fb953c1d604d3fe4728da862aa3d23c7a50ae2a0563946f"
+  "dependencyDigest": "b8163bfc42096f33ef94b3a555bd884d2f38d5ffe90933260100be3d8063bb58"
 }
